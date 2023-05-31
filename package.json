@@ -1,0 +1,15 @@
+{
+  "name": "ilearn_utilites2",
+  "version": "1.0.0",
+  "description": "for ilearn_utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "test:ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "master"
+  },
+  "author": "jason",
+  "license": "ISC"
+}
