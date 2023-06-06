@@ -5,7 +5,7 @@
 
 ## 描述
 
-iLearn Utilities 2 是一個用於專案的實用工具集。
+iLearn Utilities 2 是一個用於ILearn專案的實用工具集。
 
 ## 安裝
 
