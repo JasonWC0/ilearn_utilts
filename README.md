@@ -1,5 +1,3 @@
-以下是 `ilearn_utilities2` 的 README 文件範例：
-
 # iLearn Utilities 2
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-username/ilearn_utilities2)
@@ -7,7 +5,7 @@
 
 ## 描述
 
-iLearn Utilities 2 是一個用於某個專案的實用工具集。
+iLearn Utilities 2 是一個用於專案的實用工具集。
 
 ## 安裝
 
