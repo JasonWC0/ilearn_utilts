@@ -4,7 +4,7 @@
 */
 // -*- coding: utf-8 -*-
 
-//產出簡易即享券月報表
+//產出簡易即享券報表
 //@author: Hilbert
 
 // ---------------------------------------- import * from node_modules ----------------------------------------
@@ -173,6 +173,18 @@ ExpressticketMonthreport().then(() => {
 }).catch(error => console.error('Error:', error));
 
 
+export async function deleteCSVFile(filePath: string) {
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error('Error deleting the CSV file:', err);
+        } else {
+            console.log('CSV file deleted successfully!');
+        }
+    });
+}
+
+
+
 
 
 // 讀取expressticket資料庫資料
@@ -285,7 +297,7 @@ async function mergeExcelFilestable() {
 
 
 // CSV檔轉成Xlsx
-async function csvToExcel(csvFilePath: string, outputFilePath: string) {
+export async function csvToExcel(csvFilePath: string, outputFilePath: string) {
     // 读取CSV文件内容
     const csvData = fs.readFileSync(csvFilePath, 'utf-8');
 
@@ -317,7 +329,7 @@ async function csvToExcel(csvFilePath: string, outputFilePath: string) {
 
 
 //增加標頭灰底白字、篩選功能、凍結表格跟欄位長度(單個excel檔)
-async function addFrozenPanesAndHeaderWithFilter(inputFilePath: string, outputFilePath: string) {
+export async function addFrozenPanesAndHeaderWithFilter(inputFilePath: string, outputFilePath: string) {
     // Load the existing Excel workbook
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.readFile(inputFilePath);
@@ -385,3 +397,7 @@ async function addFrozenPanesAndHeaderToSheet2(inputFilePath: string, outputFile
 function moment() {
     throw new Error('Function not implemented.');
 }
+
+
+
+
