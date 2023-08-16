@@ -53,21 +53,25 @@ async function creditApllieStatus(serials: string[]) {
         let CreditSerial = await courseC.findOne({ serial: serials[i] }, { projection: { _id: 1, name: 1, creditSerialEndAt: 1 } })
         //期限寫法 creditSeriaEndAt: { $lt: new Date('2023-07-26') }
         for (const j in user) {
-            let userId = await courseUserC.findOne({ account: user[j] }, { projection: { _id: 1 } })
+            let userIdall = await courseUserC.findOne({ account: user[j], isLuna: false }, { projection: { _id: 1, isLuna: 1 } })
+            let userId = userIdall || "Default Value"
             // const CreditSerialClass = await courseC.find(CreditSerial, { projection: { creditSerial: 1, serial: 1 } }).toArray()
             //const CreditSerialIds = await courseC.find(CreditSerial, { projection: { _id: 1 } }).toArray().then((results) => results.map((doc) => doc._id))
-            let creditApplies = await creditAppliesC.findOne({ userId: new ObjectId(userId._id), course: new ObjectId(CreditSerial._id) }, { projection: { _id: 0, status: 1 } })
+            if (userId !== "Default Value") {
+                let creditApplies = await creditAppliesC.findOne({ userId: new ObjectId(userId._id), course: new ObjectId(CreditSerial._id) }, { projection: { _id: 0, status: 1 } })
+                let row: any[] = [];
+                let newCreditApplies = creditApplies || "Default Value"
+                row.push(user[j], CreditSerial.name, newCreditApplies.status); // 期限:CreditSerial.creditSerialEndAt.toISOString()
+                twoDimensionalArray.push(row);
+            }
             //importelement.push({ canImport: false, importclass: serials[i], conflictSerial: conflictCourse.serial, type: conflictCourse.type, finish: conflictStudies[0].finished, creditApllies: conflictCreditApplies, canimport: true, creditPointEndAt: conflictCourse.creditPointEndAt, reason: '不能匯' })
             // 資料陣列產生
-            let row: any[] = [];
-            let newCreditApplies = creditApplies || "Default Value"
-            row.push(user[j], CreditSerial.name, newCreditApplies.status, CreditSerial.creditSerialEndAt.toISOString());
-            twoDimensionalArray.push(row);
+
         }
     }
     // 設定陣列名稱
     const df1 = new DataFrame(twoDimensionalArray
-        , ['仁寶i學習帳號', '課程', '狀態', '期限']);
+        , ['仁寶i學習帳號', '課程', '狀態']);
     // 替換陣列內容    
     const df2 = df1.replace(undefined, '無積分申請').replace('VERIFYING', '送審中').replace('APPROVED', '已通過').replace('UNPAID', '申請積分-未付款').replace('APPLYING', '申請審核中')
     //df2.show() 檢查dataframe

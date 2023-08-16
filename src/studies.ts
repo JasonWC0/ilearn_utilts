@@ -44,21 +44,21 @@ async function creditApllieStatus(serials: string[]) {
     for (const i in serials) {
         // 從資料庫抓資料
         let CreditSerial = await courseC.findOne({ serial: serials[i] }, { projection: { _id: 1, name: 1, creditSerialEndAt: 1 } })
-        let Studies = await studiesC.find({ course: new ObjectId(CreditSerial._id) }, { projection: { userId: 1, quizStatus: 1 } }).toArray()
+        let Studies = await studiesC.find({ course: new ObjectId(CreditSerial._id), startDate: { $gt: new Date('2022-06-30') }, endDate: { $lt: new Date('2023-07-12') }, finished: true }, { projection: { userId: 1, quizStatus: 1, startDate: 1, endDate: 1, finished: 1 } }).toArray()
         // 個別取出Studies的userId 帶入courseUser找姓名跟電話
         for (const i in Studies) {
-            let courseUser = await courseUserC.findOne({ _id: new ObjectId(Studies[i].userId) }, { projection: { name: 1, account: 1 } })
+            let courseUser = await courseUserC.findOne({ _id: new ObjectId(Studies[i].userId) }, { projection: { name: 1, account: 1, personalId: 1 } })
             let row: any[] = [];
             // 消除null情況
             let newcreditSerialEndAt = CreditSerial || "Default Value"
             // 將抓取的資料排成陣列
-            row.push(courseUser.name, courseUser.account, CreditSerial.name, Studies[i].quizStatus, newcreditSerialEndAt.creditSerialEndAt);
+            row.push(courseUser.name, courseUser.account, courseUser.personalId, CreditSerial.name, Studies[i].quizStatus, newcreditSerialEndAt.creditSerialEndAt);
             twoDimensionalArray.push(row);
         }
     }
     // 設定陣列名稱
     const df1 = new DataFrame(twoDimensionalArray
-        , ['學員姓名', '手機', '課程', '考試狀況', '期限']);
+        , ['學員姓名', '手機', '身分證字號', '課程', '考試狀況', '期限']);
     // 設定通過跟未通過    
     const df2 = df1.replace(undefined, ' ').replace('VERIFYING', '已通過').replace('APPROVED', '已通過').replace('NOT', '未通過').replace('PASS', '已通過').replace('APPLYING', '已通過')
     // 轉成 csv檔
