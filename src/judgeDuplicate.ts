@@ -2,21 +2,17 @@ import * as request from 'request'
 
 import { MongoClient } from 'mongodb';
 const fs = require('fs');
-// const url = 'mongodb://104.199.235.97:32018/icare_elearning_v15';
-// const client = new MongoClient(url, { auth: { user: 'icare', password: 'UATg0Icare' } });
+//const url = 'mongodb://104.199.235.97:32018/icare_elearning_v15';
+//const client = new MongoClient(url, { auth: { user: 'icare', password: 'UATg0Icare' } });
 
 const url = 'mongodb://34.80.83.237:32018/icare_elearning';
 const client = new MongoClient(url, { auth: { user: 'icare', password: 'iLearning0Care' } });
 
 export const serials = [
-  'NC230045', 'NC230046', 'NC230047', 'NC230048', 'NC230049', 'NC230051', 'NC230050', 'NC230076', 'NC230081',
-  'NC220574', 'NC220576', 'NC220578', 'NC220575', 'NC220577', 'NC220579', 'NC230007', 'NC230008', 'NC230009',
-  'NC220404', 'NC220405', 'NC220406', 'NC220408', 'NC220538', 'NC220541', 'NC220544', 'NC220545', 'NC220540',
-  'NC220543', 'NC220546', 'NC220548', 'NC220539', 'NC220542', 'NC220550', 'NC220549'
-
+  'NC220577','NC230055'
 ]
-
-const user = '0923334205'
+	
+const user = '0919762792'
 async function getCollection(collection: string) {
   // const db = client.db('icare_elearning_v15');
   const db = client.db('icare_elearning');
@@ -70,8 +66,7 @@ export async function judge(serials: string[]) {
       if (conflictStudies[0].finished) {
 
         if (conflictCourse.creditPointEndAt < now) {
-          if (!conflictCreditApplies || !isAllFail) {
-
+          if (!conflictCreditApplies || isAllFail) {
             importelement.push({ canImport: true, importclass: serials[i], conflictSerial: conflictCourse.serial, type: conflictCourse.type, finish: conflictStudies[0].finished, creditApllies: conflictCreditApplies, canimport: true, creditPointEndAt: conflictCourse.creditPointEndAt, reason: '直播課沒在時間內申請' })
             continue
 
