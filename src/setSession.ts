@@ -1,5 +1,4 @@
 import puppeteer from 'puppeteer'
-import {KnownDevices} from 'puppeteer'
 import { MongoClient, ObjectID } from 'mongodb'
 
 const isUat = false
@@ -15,7 +14,7 @@ if(isUat){
 const date = new Date('2025-01-01T00:00:00.000Z')
 
 //---------------------modify here---------------------
-const account='0918808418' //user account
+const account= '0923883922' //user account
 const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' //path of chrome.exe
 //---------------------modify here---------------------
 
@@ -27,11 +26,18 @@ const setSession = (async (chromePath: string) => {
     headless:false
   })
   const page = await browser.newPage()
-  await page.goto('https://ilearning.compal-health.com/')
+  let session = ''
+  if(isUat){
+    await page.goto('https://icareuat115.compal-health.com/')
+    const cookies = await page.cookies()
+    session = cookies.find( cookie => cookie.name === 'icareuat.sessionId')!.value.slice(4).split('.')[0]
+  }
+  else{
+    await page.goto('https://ilearning.compal-health.com/')
+    const cookies = await page.cookies()
+    session = cookies.find( cookie => cookie.name === 'clcare.sessionId')!.value.slice(4).split('.')[0]
+  }
   
-  const cookies = await page.cookies()
-
-  const session = cookies.find( cookie => cookie.name === 'clcare.sessionId')!.value.slice(4).split('.')[0]
   console.log(session)
   await getDb(session)
   await page.reload()
