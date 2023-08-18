@@ -117,4 +117,27 @@ const image: Image = [
 const lowThreshold = 100;
 const highThreshold = 200;
 
+import * as fs from 'fs';
+import sharp from 'sharp';
+
+const imagePath = 'src/imageProcess/license1.jpg'; // 替換為你的圖片文件路徑
+
+// 讀取本地圖片文件
+const imageBuffer = fs.readFileSync(imagePath);
+
+// 使用 sharp 库解碼圖片并获取像素数据
+sharp(imageBuffer)
+  .raw()
+  .toBuffer()
+  .then((data: Buffer) => {
+    // 將 Buffer 轉換為 TypedArray (Uint8Array)
+    const array: Uint8Array = new Uint8Array(data);
+
+    // 打印陣列
+    console.log(array);
+  })
+  .catch((err: Error) => {
+    console.error(err);
+  });
+
 const edges = canny(image, lowThreshold, highThreshold);

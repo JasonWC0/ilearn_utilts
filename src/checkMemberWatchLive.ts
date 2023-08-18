@@ -56,7 +56,7 @@ async function checkWatchLive(account: string, serial: string) {
   const chatRoomValidCheckin = await ChatRoomUsersC.find({
     userId: user._id,
     chatRoomId: course.liveInfo.chatRoomId,
-    joinedAt: { $lt: new Date(course.liveInfo.startAt.getTime() + fiveMinutes) },
+    joinedAt: { $lt: new Date(course.liveInfo.tartAt.getTime() + fiveMinutes) },
     leftAt: { $gt: course.liveInfo.courseStartAt }
   }).toArray();
 
@@ -149,7 +149,7 @@ async function checkWatchLive(account: string, serial: string) {
 
 }
 
-checkWatchLive('0912313219', 'NC230123')
+checkWatchLive('0920298399', 'NC230129')
 // loop('NC230100')
 
 async function loop(serial: string) {

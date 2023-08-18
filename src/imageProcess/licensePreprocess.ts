@@ -90,12 +90,12 @@ function dilate(image: number[][], kernelSize: number): number[][] {
 
 // 使用示例
 (async () => {
-  const inputImagePath = 'src/imageProcess/licensePreprocess.ts';
+  const inputImagePath = 'src/imageProcess/license1.jpg';
   const croppedImagePath = 'src/imageProcess/output_cropped.png';
   const denoisedImagePath = 'src/imageProcess/output_denoised.png';
   const binarizedImagePath = 'src/imageProcess/output_binarized.png';
 
   // await cropImage(inputImagePath, croppedImagePath, 100, 100, 400, 300);
   // await denoiseImage(inputImagePath, denoisedImagePath, 2);
-  await binarizeImage(inputImagePath, binarizedImagePath, 128);
+  await binarizeImage(inputImagePath, binarizedImagePath, 120);
 })();
