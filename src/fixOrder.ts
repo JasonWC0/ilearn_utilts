@@ -2,7 +2,7 @@ import * as request from 'request'
 
 import { MongoClient } from 'mongodb';
 const fs = require('fs');
-const test = true
+const test = false
 let url
 let client: any
 let dbname: any
@@ -18,17 +18,6 @@ else {
   dbname = 'icare_elearning'
 
 }
-
-
-// export const serials = [
-//   'NC230045', 'NC230046', 'NC230047', 'NC230048', 'NC230049', 'NC230051', 'NC230050', 'NC230076', 'NC230081',
-//   'NC220574', 'NC220576', 'NC220578', 'NC220575', 'NC220577', 'NC220579', 'NC230007', 'NC230008', 'NC230009',
-//   'NC220404', 'NC220405', 'NC220406', 'NC220408', 'NC220538', 'NC220541', 'NC220544', 'NC220545', 'NC220540',
-//   'NC220543', 'NC220546', 'NC220548', 'NC220539', 'NC220542', 'NC220550', 'NC220549'
-
-// ]
-// const serials = ["NC220538"]
-
 async function getCollection(collection: string) {
   // const db = client.db('icare_elearning_v15');
   const db = client.db(dbname);
@@ -37,7 +26,7 @@ async function getCollection(collection: string) {
   return licenseCol
 }
 
-async function fixOrder(serial: string, account: string) {
+async function _fixOrder(serial: string, account: string) {
   await client.connect();
   const courseUserC = await getCollection('courseusers')
   const ordersC = await getCollection('orders')
@@ -49,9 +38,9 @@ async function fixOrder(serial: string, account: string) {
   // const order = await ordersC
   const order = await ordersC.findOne({ userId: user._id, course: course._id })
   if (!order) {
-    throw console.error('沒有該筆訂單');
-
-  }
+    console.error(`沒有該筆訂單: serial: ${serial}, account: ${account}`)
+    return
+ }
   const orderDetaik = await orderDetailC.findOne({ orderId: order._id })
   await orderDetailC.updateOne({ orderId: order._id }, { $set: { specialOffer: 53, checkoutPrice: 53 } })
   await ordersC.updateOne({ _id: order._id }, { $set: { "payment.invoiceItemPrice": 53, "coursebk.0.price": 53, "payment.totalAmount": 53 } })
@@ -61,21 +50,26 @@ async function fixOrder(serial: string, account: string) {
 
 }
 
-// fixOrder('NC220546', '0905323703')
-const serialss = [
-  // 'NC220549', 'NC220550', 'NC220542', 'NC220539', 'NC220548', 'NC220546', 'NC220543', 'NC220540', 'NC220545', 'NC220544', 'NC220375', 'NC220541', 'NC220574', 'NC220576', 'NC220377', 'NC220575', 'NC220577', 'NC220579'
-  // 'NC220574', 'NC220576', 'NC220575', 'NC220577', 'NC220579', 'NC220550', 'NC220549', 'NC220578'
-  // 'NC220574', 'NC220576', 'NC220578', 'NC220575', 'NC220577', 'NC220579', 'NC220538', 'NC220541', 'NC220544', 'NC220545', 'NC220540', 'NC220543', 'NC220546', 'NC220548', 'NC220539', 'NC220542', 'NC220550', 'NC220549'
-  'NC220549', 'NC220550'
-
+const users = [
+  '0937686831'
 ]
-async function loop(serialss: string[]) {
-  for (const i of serialss) {
-    console.log(i)
-    await fixOrder(i, '0923334205')
-  }
 
+const serials = [
+  'NC220375','NC220377'
+]
+
+async function fixOrder(users: Array<string>, serials: Array<string>) {
+  
+  for(const user of users){
+    console.log(user)
+    for (const serial of serials) {
+      //console.log(serial)
+      await _fixOrder(serial, user)
+    }
+  }
+  //await client.close()
   console.log('end')
+  
 }
 
-loop(serialss)
+fixOrder(users, serials)
