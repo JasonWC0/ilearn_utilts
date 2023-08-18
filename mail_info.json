@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "extras": {
+    "success": [
+      {
+        "row": 1,
+        "courseId": "633f8be365e30c0b47140be9"
+      }
+    ],
+    "failed": [
+      {
+        "row": 2,
+        "reason": "1 格式錯誤"
+      },
+      {
+        "row": 2,
+        "specialReason": "特別原因"
+      }
+    ]
+  }
+}
