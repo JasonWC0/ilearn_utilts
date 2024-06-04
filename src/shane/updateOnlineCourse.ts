@@ -11,7 +11,23 @@ import { DB } from './database';
 
 dayjs.extend(utc);
 
-const serials = ['NC240380'];
+const serials = [
+  'NC240332',
+  'NC240333',
+  'NC240334',
+  'NC240335',
+  'NC240336',
+  'NC240337',
+  'NC240338',
+  'NC240339',
+  'NC240340',
+  'NC240341',
+  'NC240342',
+  'NC240343',
+  'NC240344',
+  'NC240345',
+  'NC240346',
+];
 
 async function getData() {
   const dbClient = new DB(true);
@@ -29,13 +45,13 @@ async function getData() {
   for (const course of courses) {
     const courseplan = courseplans.find(cp => cp._id.equals(course.plan));
     // 更新產品原價300元，特價0元
-    await db.collection('products').updateOne({ _id: courseplan.productId }, { $set: { specialOffer: 0, price: 300 } });
+    await db.collection('products').updateOne({ _id: course.productId }, { $set: { specialOffer: 0, price: 300 } });
     // 更新積分申請費用為75元
-    await db.collection('products').updateOne({ parent: courseplan.productId, label: '仁寶i學習/申請積分手續費' }, { $set: { price: 75 } });
+    await db.collection('products').updateOne({ parent: course.productId, label: '仁寶i學習/申請積分手續費' }, { $set: { price: 75 } });
     // 更新courseplan課程價格為300元
     await db.collection('courseplans').updateOne({ _id: courseplan._id }, { $set: { price: 300 } });
     // 更新course課程價格為300元，最後購買時間為直播開始前一小時
-    await db.collection('courses').updateOne({ _id: course._id }, { $set: { purchaseAt: dayjs(courseplan.liveInfo.startAt).subtract(1, 'hour').toDate(), price: 300 } });
+    await db.collection('courses').updateOne({ _id: course._id }, { $set: { purchasedAt: dayjs(course.liveInfo.startAt).subtract(1, 'hour').toDate(), price: 300, discount: 0 } });
     const liveStartTime = course.liveInfo.startAt;
     let rec;
     const formattedDate = liveStartTime.toISOString().split('T')[0].replace(/-/g, '/');
