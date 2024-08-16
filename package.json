@@ -97,6 +97,7 @@
     "@types/nodemailer": "^6.4.8",
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/parser": "^6.16.0",
+    "@types/xlsx-populate": "git+https://github.com/JanLoebel/types-xlsx-populate.git",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
