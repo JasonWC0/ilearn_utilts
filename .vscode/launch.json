@@ -1,0 +1,102 @@
+{
+  "configurations": [
+	{
+		"type": "node",
+		"name": "debug refundList.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\shane\\refundList.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug setSession.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\setSession.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug refundList copy.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\shane\\refundList copy.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug readExcel.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\utils\\readExcel.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug findStudyStartDay.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\findStudyStartDay.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug exportExpressTickets.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\exportExpressTickets.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug test.js",
+		"request": "launch",
+		"args": [],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\test.js"
+	},
+	{
+		"type": "node",
+		"name": "debug test copy.js",
+		"request": "launch",
+		"args": [],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\test copy.js"
+	},
+	{
+		"type": "node",
+		"name": "debug exportILeanInvoices.ts",
+		"request": "launch",
+		"args": [],
+		"runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\src\\exportILeanInvoices.ts"
+	},
+	{
+		"type": "node",
+		"name": "debug 負責人更改.js",
+		"request": "launch",
+		"args": [],
+		"program": "c:\\Users\\kao87\\OneDrive\\桌面\\ilearn_utilites2\\負責人更改.js"
+	}
+]
+}

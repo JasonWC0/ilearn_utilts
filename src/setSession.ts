@@ -14,8 +14,8 @@ if (isUat) {
 const date = new Date('2025-01-01T00:00:00.000Z');
 
 //---------------------modify here---------------------
-const account = '0985728807'; //user account
-const objId = '62623c66e3846d0a4d2de7f0';
+const account = '0972052215'; //user account
+//const objId = '62623c66e3846d0a4d2de7f0';
 const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'; //path of chrome.exe
 //---------------------modify here---------------------
 
